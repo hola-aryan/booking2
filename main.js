@@ -37,9 +37,15 @@ function displayLocalStorageData() {
         deleteItem.textContent = "Delete";
         deleteItem.addEventListener('click', () => deleteElement(email));
 
+        // Add an Edit button
+        const editItem = document.createElement("button");
+        editItem.textContent = "Edit";
+        editItem.addEventListener('click', () => editElement(email, userData));
+
         listItem.textContent = `Name: ${userData.name}, Email: ${userData.email}, Mobile: ${userData.phone}`;
 
         localStorageDataList.appendChild(listItem);
+        listItem.appendChild(editItem);
         listItem.appendChild(deleteItem);
     }
 }
@@ -47,4 +53,15 @@ function displayLocalStorageData() {
 function deleteElement(email){
     localStorage.removeItem(email);
     displayLocalStorageData();
+}
+function editElement(email, userData){
+    const newEmail = prompt(`Edit email for ${userData.name}:`, userData.email);
+
+    // Update email in localStorage if a new email is provided
+    if (newEmail !== null && newEmail.trim() !== "") {
+        userData.email = newEmail.trim();
+        localStorage.setItem(email, JSON.stringify(userData));
+        displayLocalStorageData(); // Refresh the displayed data
+    }
+
 }
