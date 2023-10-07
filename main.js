@@ -33,8 +33,18 @@ function displayLocalStorageData() {
         const userData = JSON.parse(localStorage.getItem(email));
 
         const listItem = document.createElement("li");
+        const deleteItem = document.createElement("button");
+        deleteItem.textContent = "Delete";
+        deleteItem.addEventListener('click', () => deleteElement(email));
+
         listItem.textContent = `Name: ${userData.name}, Email: ${userData.email}, Mobile: ${userData.phone}`;
 
         localStorageDataList.appendChild(listItem);
+        listItem.appendChild(deleteItem);
     }
+}
+
+function deleteElement(email){
+    localStorage.removeItem(email);
+    displayLocalStorageData();
 }
